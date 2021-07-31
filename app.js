@@ -85,17 +85,19 @@ const randChoice = arr => {
     return arr[Math.floor(Math.random() * arr.length)];
 };
 
+
 for(let i = 0; i < 20; i++) {
     const gender = randChoice(genders);
+    const firstName = randChoice(gender === 'male' ? maleNames : femaleNames)
     const lastName = randChoice(lastNames);
     const age = generateAge(18,78);
-    if(gender === 'male') {
-        const name = randChoice(maleNames);
-        people.push(new Array(gender, name, lastName, age))
-    } else {
-        const name = randChoice(femaleNames);
-        people.push(new Array(gender, name, lastName, age))
+    const person = {
+       firstName: firstName,
+       lastName: lastName,
+       gender: gender,
+       age: age,
     }
+    people.push(person);
 }
 
 fs.writeFile('people.json', JSON.stringify(people), (err) => {
